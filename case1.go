@@ -27,7 +27,7 @@ func newRandomKey() string {
 // 读取随机数据，并返回随机数据的校验和：用于验证数据是否完整传输
 func readRandomData(reader io.Reader, hash hash.Hash) (checksum string) {
 	hash.Reset()
-	var buf = make([]byte, 23<<20) //调用者读取时的 buf 大小不是固定的，你的实现中不可假定 buf 为固定值
+	var buf = make([]byte, 23<<20) // 调用者读取时的 buf 大小不是固定的，你的实现中不可假定 buf 为固定值
 	for {
 		n, err := reader.Read(buf)
 		if err == io.EOF {
@@ -49,8 +49,8 @@ func readRandomData(reader io.Reader, hash hash.Hash) (checksum string) {
 func writeRandomData(writer io.Writer, hash hash.Hash) (checksum string) {
 	hash.Reset()
 	const (
-		dataSize = 500 << 20 //一个 key 对应 500MB 随机二进制数据，dataSize 也可以是其他值，你的实现中不可假定 dataSize 为固定值
-		bufSize  = 1 << 20   //调用者写入时的 buf 大小不是固定的，你的实现中不可假定 buf 为固定值
+		dataSize = 500 << 20 // 一个 key 对应 500MB 随机二进制数据，dataSize 也可以是其他值，你的实现中不可假定 dataSize 为固定值
+		bufSize  = 1 << 20   // 调用者写入时的 buf 大小不是固定的，你的实现中不可假定 buf 为固定值
 	)
 	var (
 		buf  = make([]byte, bufSize)
@@ -113,7 +113,7 @@ func testCase1() {
 			lock.Lock()
 			mapKeyToChecksum[key] = checksum
 			lock.Unlock()
-			err = writer.Close() //表明该 key 的所有数据已传输完毕
+			err = writer.Close() // 表明该 key 的所有数据已传输完毕
 			if err != nil {
 				panic(err)
 			}
